@@ -4,7 +4,9 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean	id="scheduleDao"
-			class="com.mydiary.schedule.dao.ScheduleDaoImpl"></bean>
+			class="com.mydiary.schedule.dao.ScheduleDaoImpl">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
+	</bean>
 			
 	<bean	id="scheduleService"
 			class="com.mydiary.schedule.service.ScheduleServiceImpl">

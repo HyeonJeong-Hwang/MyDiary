@@ -13,5 +13,10 @@
 			class="com.mydiary.member.web.MemberController">
 		<property name="memberService" ref="memberService"></property>		
 	</bean>
+	
+	<bean	id="memoController"
+			class="com.mydiary.memo.web.MemoController">
+		<property name="memoService" ref="memoService"></property>		
+	</bean>
 
 </beans>

@@ -21,4 +21,24 @@ public class MemberServiceImpl implements MemberService{
 		return this.memberDao.selectMember(member);
 	}
 
+	@Override
+	public boolean readCountMemberEmail(String email) {
+		return this.memberDao.selectMemberCountEmail(email) > 0;
+	}
+
+	@Override
+	public MemberVO readMemberOne(int userId) {
+		return this.memberDao.selectMemberOne(userId);
+	}
+
+	@Override
+	public boolean updateProfile(MemberVO newProfile) {
+		return this.memberDao.updateMember(newProfile) > 0;
+	}
+
+	@Override
+	public boolean deleteMember(int id) {
+		return memberDao.deleteMember(id)>0;
+	}
+
 }

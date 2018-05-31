@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="ScheduleDao">
+
+	<resultMap type="ScheduleVO" id="ScheduleVOMap">
+  		<id column="SCHEDULE_ID" property="scheduleId"/>
+  		<result column="SCHEDULE_DATE" property="scheduleDate"/>
+  		<result column="SCHEDULE_TYPE" property="scheduleType"/>
+  		<result column="SCHEDULE_MEMO" property="scheduleMemo"/>
+  		<result column="WEEKTH" property="weekth"/>
+  		<result column="SCHEDULE_BODY" property="scheduleBody"/>
+  		<result column="SCHEDULE_TITLE" property="scheduleTitle"/>
+  		<result column="MEMBER_ID" property="memberId"/>
+  	</resultMap>
+  	
+  	<select id="selectScheduleOne" parameterType="int" resultType="ScheduleVO">
+  		SELECT	SCHEDULE_TITLE scheduleTitle 
+  				, SCHEDULE_BODY scheduleBody
+  				, SCHEDULE_ID scheduleId
+  				, SCHEDULE_MEMO scheduleMemo
+  		FROM	SCHEDULE
+  		WHERE	SCHEDULE_ID = #{scheduleId}
+  	</select>
+  	
+  	<insert id="insertWeeklySchedule" parameterType="ScheduleVO">
+  		INSERT	INTO	SCHEDULE (
+  				SCHEDULE_ID
+  				, SCHEDULE_DATE
+  				, SCHEDULE_TYPE
+  				<if test="scheduleMemo != null">
+  				, SCHEDULE_MEMO
+  				</if>
+  				<if test="weekth != null">
+  				, WEEKTH
+  				</if>
+  				<if test="scheduleBody != null">
+  				, SCHEDULE_BODY
+  				</if>
+  				, SCHEDULE_TITLE
+  				, MEMBER_ID
+  		)
+  		VALUES	(
+  				SCHEDULE_ID_SEQ.NEXTVAL
+  				, TO_DATE(#{scheduleDate},'yyyymm')
+  				, #{scheduleType}
+  				<if test="scheduleMemo != null">
+  				, #{scheduleMemo}
+  				</if>
+  				<if test="weekth != null">
+  				, #{weekth}
+  				</if>
+  				<if test="scheduleBody != null">
+  				, #{scheduleBody}
+  				</if>
+  				, #{scheduleTitle}
+  				, #{memberId}
+  		)
+  	</insert>
+  	
+  	<insert id="insertDailySchedule" parameterType="ScheduleVO">
+  		INSERT	INTO	SCHEDULE (
+  				SCHEDULE_ID
+  				, SCHEDULE_DATE
+  				, SCHEDULE_TYPE
+  				<if test="scheduleMemo != null">
+  				, SCHEDULE_MEMO
+  				</if>
+  				<if test="weekth != null">
+  				, WEEKTH
+  				</if>
+  				<if test="scheduleBody != null">
+  				, SCHEDULE_BODY
+  				</if>
+  				, SCHEDULE_TITLE
+  				, MEMBER_ID
+  		)
+  		VALUES	(
+  				SCHEDULE_ID_SEQ.NEXTVAL
+  				, TO_DATE(#{scheduleDate},'yyyymmdd')
+  				, #{scheduleType}
+  				<if test="scheduleMemo != null">
+  				, #{scheduleMemo}
+  				</if>
+  				<if test="weekth != null">
+  				, #{weekth}
+  				</if>
+  				<if test="scheduleBody != null">
+  				, #{scheduleBody}
+  				</if>
+  				, #{scheduleTitle}
+  				, #{memberId}
+  		)	
+  	</insert>
+  	
+  	<select id="selectMonthlySchedule" parameterType="ScheduleVO" resultType="ScheduleVO">
+  	
+  		SELECT	SCHEDULE_TITLE scheduleTitle
+  				, SCHEDULE_ID scheduleId
+  		FROM	SCHEDULE
+  		WHERE	TO_CHAR(SCHEDULE_DATE, 'yyyymmdd') = #{scheduleDate}
+  		AND		SCHEDULE_TYPE = 'd'
+  		AND		MEMBER_ID = #{memberId}
+  	</select>
+  	
+  	<select id="selectWeeklySchedule" parameterType="ScheduleVO" resultType="ScheduleVO">
+  		SELECT	SCHEDULE_TITLE scheduleTitle
+  				, SCHEDULE_ID scheduleId
+  		FROM	SCHEDULE
+  		WHERE 	TO_CHAR(SCHEDULE_DATE, 'yyyymmdd') = #{scheduleDate}
+  		AND		WEEKTH = #{weekth}
+  		AND		SCHEDULE_TYPE = 'w'
+  		AND		MEMBER_ID = #{memberId}
+  	</select>
+  	
+  	<delete id="deleteSchedule" parameterType="int">
+  		DELETE
+  		FROM	SCHEDULE
+  		WHERE	SCHEDULE_ID = #{scheduleId}
+  	</delete>
+	
+</mapper>

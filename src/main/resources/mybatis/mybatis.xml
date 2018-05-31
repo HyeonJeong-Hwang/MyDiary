@@ -7,8 +7,12 @@
   
   	<typeAliases>
   		<typeAlias type="com.mydiary.member.vo.MemberVO" alias="MemberVO"/>
+  		<typeAlias type="com.mydiary.schedule.vo.ScheduleVO" alias="ScheduleVO"/>
+  		<typeAlias type="com.mydiary.memo.vo.MemoVO" alias="MemoVO"/>
   	</typeAliases>
   	<mappers>
 	  	<mapper resource="com/mydiary/member/dao/sql/memberDao.xml"/>
+	  	<mapper resource="com/mydiary/schedule/dao/sql/scheduleDao.xml"/>
+	  	<mapper resource="com/mydiary/memo/dao/sql/memoDao.xml"/>
 	  </mappers>
   </configuration>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="MemoDao">
+
+	<resultMap type="MemoVO" id="MemoVOMap">
+  		<id column="MEMO_ID" property="memoId"/>
+  		<result column="MEMO_TITLE" property="memoTitle"/>
+  		<result column="MEMO_BODY" property="memoBody"/>
+  		<result column="WRITE_DATE" property="writeDate"/>
+  		<result column="MEMBER_ID" property="memberId"/>
+  	</resultMap>
+  	
+  	<select id="selectMemoAll" parameterType="_int" resultType="MemoVO">
+  		SELECT	MEMO_ID memoId
+  				, MEMO_TITLE memoTitle
+  				, MEMO_BODY memoBody
+  				, WRITE_DATE writeDate
+  				, MEMBER_ID memberId
+  		FROM	MEMO
+  		WHERE	MEMBER_ID = #{memberId}
+  	</select>
+  	
+  	<insert id="insertMemo" parameterType="MemoVO">
+  		INSERT	INTO	MEMO (
+  			MEMO_ID
+  			, MEMO_TITLE
+  			, MEMO_BODY
+  			, WRITE_DATE
+  			, MEMBER_ID
+  		)
+  		VALUES (
+  			MEMO_ID_SEQ.NEXTVAL
+  			, #{memoTitle}
+  			, #{memoBody}
+  			, SYSDATE
+  			, #{memberId}
+  		)
+  	</insert>
+  	
+  	<select id="selectMemoOne" parameterType="int" resultType="MemoVO">
+  		SELECT	MEMO_ID memoId
+  				, MEMO_TITLE memoTitle
+  				, MEMO_BODY memoBody
+  				, WRITE_DATE writeDate
+  				, MEMBER_ID memberId
+  		FROM 	MEMO
+  		WHERE	MEMO_ID = #{memoId}
+  	</select>
+  	
+  	<update id="updateMemo" parameterType="MemoVO">
+  		UPDATE	MEMO
+  		SET		WRITE_DATE = SYSDATE
+  				<if test="memoTitle != null and memoTitle != ''">
+  				, MEMO_TITLE = #{memoTitle}
+  				</if>
+  				<if test="memoBody != null and memoBody != ''">
+  				, MEMO_BODY = #{memoBody}
+  				</if>
+  				
+		WHERE	MEMO_ID = #{memoId}
+  	</update>
+  	
+  	<delete id="deleteMemo" parameterType="int">
+  		DELETE	
+  		FROM	MEMO
+  		WHERE	MEMO_ID = #{memoId}
+  	</delete>
+  	
+ </mapper>
+ 
+ 

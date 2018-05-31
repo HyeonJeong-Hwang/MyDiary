@@ -1,0 +1,69 @@
+@charset "UTF-8";
+
+p, div, a, li, span, td, i, u, input, textarea, b, body{
+	font-size: 12pt;
+	color: #333;
+	font-family: "맑은 고딕";
+}
+
+body{
+  margin: 0px;
+  width: 1000px;
+  background-color: #FFF3D4;
+}
+
+th, td, tr{
+	border: 1px solid #FFA7A7;
+}
+
+#header{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #FFA7A7;
+}
+
+#nickname-view{
+  text-align: right;
+}
+
+#diary-title{
+  text-align: center;
+}
+
+.tag{
+	display: inline-block;
+	width: 100px;
+}
+.tag-h{
+	visibility:hidden;
+	display: inline-block;
+	width: 100px;
+}
+
+#left-bookmark{
+  width: 150px;
+  background-color: #FFD8D8;
+  margin: 0px;
+  display: inline-block;
+  vertical-align: top;
+  float: right
+}
+
+#center-page{
+  width: 700px;
+  background-color: #FFEAEA;
+  margin:0px;
+  display: inline-block;
+  vertical-align: top;
+  
+}
+
+#right-bookmark{
+  width: 150px;
+  background-color: #FFD8D8;
+  margin:0px;
+  display: inline-block;
+  vertical-align: top;
+  float: left;
+}
+

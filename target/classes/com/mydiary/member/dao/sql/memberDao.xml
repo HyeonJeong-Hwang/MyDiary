@@ -3,7 +3,29 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-    <mapper namespace="MemberDao">
+<mapper namespace="MemberDao">
+
+	<resultMap type="MemberVO" id="MemberVOMap">
+  		<id column="ID" property="id"/>
+  		<result column="EMAIL" property="email"/>
+  		<result column="PASSWORD" property="password"/>
+  		<result column="NICKNAME" property="nickname"/>
+  		<result column="BIRTHDAY" property="birthday"/>
+  		<result column="NAME" property="name"/>
+  		<result column="LIKE_THING" property="likeThing"/>
+  		<result column="HATE_THING" property="hateThing"/>
+  		<result column="PROFILE_MEMO" property="profileMemo"/>
+  		<result column="PROFILE_PRICTURE" property="profilePicture"/>
+  		
+  	</resultMap>
+	
+
+    <select id="selectMemberCountEmail" parameterType="string" 
+  			resultType="_int">
+  		SELECT	COUNT(ID)
+  		FROM	MEMBER
+  		WHERE	EMAIL=#{email}
+  	</select>
   
   	<insert id="insertMember" parameterType="MemberVO">
   		INSERT	INTO	MEMBER (
@@ -25,12 +47,60 @@
   	<select id="selectMember" parameterType="MemberVO" resultType="MemberVO">
   		SELECT	ID
   				, EMAIL
-  				, BIRTHDAY birthday
-  				, NICKNAME nickname
+  				, PASSWORD
+  				, NICKNAME
+  				, BIRTHDAY
+  				, NAME name
+  				, LIKE_THING likeThing
+  				, HATE_THING hateThing
+  				, PROFILE_MEMO profileMemo
   		FROM	MEMBER
   		WHERE	EMAIL = #{email}
   		AND		PASSWORD = #{password}
   		
   	</select>
+  	
+  	<select id="selectMemberOne" parameterType="int" resultType="MemberVO">
+  		SELECT	ID
+  				, EMAIL
+  				, PASSWORD
+  				, NICKNAME
+  				, BIRTHDAY
+  				, NAME name
+  				, LIKE_THING likeThing
+  				, HATE_THING hateThing
+  				, PROFILE_MEMO profileMemo
+  		FROM	MEMBER
+  		WHERE	ID = #{id}
+  		
+  	</select>
+  	
+  	<update id="updateMember" parameterType="MemberVO">
+  		UPDATE	MEMBER
+  		SET		EMAIL = #{email}
+  				<if test="name != null">
+  				, NAME = #{name}
+  				</if>
+  				<if test="likeThing != null">
+  				, LIKE_THING = #{likeThing}
+  				</if>
+  				<if test="hateThing != null">
+  				, HATE_THING = #{hateThing}
+  				</if>
+  				<if test="profileMemo != null">
+  				, PROFILE_MEMO = #{profileMemo}
+  				</if>
+  				<if test="profilePicture != null">
+  				, PROFILE_PRICTURE = #{profilePicture}
+  				</if>
+		WHERE	ID = #{id}
+  	</update>
+  	
+  	<delete id="deleteMember" parameterType="int">
+  		DELETE
+  		FROM	MEMBER
+  		WHERE	ID=#{id}
+  	</delete>
+  	
   	
   </mapper>
